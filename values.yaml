@@ -1,5 +1,5 @@
 configmap:
-  mongoURL: mongodb://mongodb:27017/user
+  mongoURL: 848332098195.dkr.ecr.us-east-1.amazonaws.com/roboshop/user
   redisURL: redis://redis:6379
 
 deployment:
