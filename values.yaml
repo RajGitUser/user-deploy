@@ -1,7 +1,7 @@
 configmap:
-  mongoURL: 848332098195.dkr.ecr.us-east-1.amazonaws.com/roboshop/user
+  mongoURL: "mongodb://mongodb:27017/users"
   redisURL: redis://redis:6379
 
 deployment:
-  imageid: rajmdevops/user
+  imageid: 848332098195.dkr.ecr.us-east-1.amazonaws.com/roboshop/user
   version: v1
