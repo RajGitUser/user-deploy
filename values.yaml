@@ -1,0 +1,7 @@
+configmap:
+  mongoURL: mongodb://mongodb:27017/user
+  redisURL: redis://redis:6379
+
+deployment:
+  imageid: rajmdevops/user
+  version: v1

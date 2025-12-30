@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: user
+  namespace: roboshop
+data:
+  MONGO: "true"
+  MONGO_URL: "{{ .Values.configmap.mongoURL }}"
+  REDIS_URL: "{{ .Values.configmap.redisURL }}"
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+  namespace: roboshop
+  labels:
+    project: roboshop
+    component: user
+    tier: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      project: roboshop
+      component: user
+      tier: backend
+  template:
+    metadata:
+      labels:
+        project: roboshop
+        component: user
+        tier: backend
+    spec:
+      containers:
+      - name: user
+        image: "{{ .Values.deployment.imageid }}:{{ .Values.deployment.version }}"
+        imagePullPolicy: Always
+        envFrom:
+        - configMapRef:
+            name: user
+        ports:
+        - name: liveness-port
+          containerPort: 8080
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: liveness-port
+          failureThreshold: 1
+          periodSeconds: 15
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: liveness-port
+          failureThreshold: 1
+          periodSeconds: 15
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+  namespace: roboshop
+spec:
+  selector:
+    project: roboshop
+    component: user
+    tier: backend
+  ports:
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
