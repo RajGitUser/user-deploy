@@ -19,7 +19,7 @@ def configMap = [
 echo "Going to execute Jenkins shared library"
 echo "ConfigMap: ${configMap}"
 
-EKSDeploy(configMap)
+EKSdeploy(configMap)
 
 
 
