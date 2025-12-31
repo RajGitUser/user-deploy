@@ -4,4 +4,4 @@ configmap:
 
 deployment:
   imageid: 848332098195.dkr.ecr.us-east-1.amazonaws.com/roboshop/user
-  version: v1
+  version: IMAGE_VERSION
